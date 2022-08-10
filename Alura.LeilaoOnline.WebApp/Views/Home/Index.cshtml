@@ -42,11 +42,7 @@
 
                         </div>
                         <div class="card-content">
-                            @try{
-                                <p>@leilao.Descricao.Substring(0, 150)</p>
-                            }catch(Exception){
-                                <p>Sem descrição</p>
-                            }
+                            <p>@leilao.Descricao.Substring(0, 150)</p>
                         </div>
                         <div class="card-action">
                             <a asp-action="Detalhes" asp-route-id="@leilao.Id">Detalhes</a>
