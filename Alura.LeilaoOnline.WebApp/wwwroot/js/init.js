@@ -14,7 +14,7 @@ function readPosterURL(input) {
 }
 
 (function ($) {
-    $(function () {
+    $(function(){
 
         $('.sidenav').sidenav();
         $('.parallax').parallax();
@@ -39,9 +39,32 @@ function readPosterURL(input) {
         $('.tooltiped').tooltip();
         $('input[type=text]:not(.browser-default), textarea').characterCounter();
 
-        $('#btnDarLance').on('click', darLance);
+        $('#btnDarLance').on('click', e => {
+            e.preventDefault();
+
+            const lanceOfertado = $('#Valor').val();
+            //enviar requisição com o lance
+            $.post(
+                '/Interessadas/OfertaLance',
+                $('#formDarLance').serialize(),
+                function () {
+                    console.log('lance ofertado!');
+                    M.toast({ html: 'Lance ofertado com sucesso!' });
+
+                    const formatter = new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                        minimumFractionDigits: 2
+                    });
+
+                    $("#lanceAtual").text(formatter.format(lanceOfertado));
+                }
+            );
+
+        });
+
         $('.seguir').one('click', clickSeguir);
         $('.abandonar').one('click', clickAbandonar);
 
-    }); // end of document ready
+  }); // end of document ready
 })(jQuery); // end of jQuery name space
